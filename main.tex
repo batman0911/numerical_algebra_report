@@ -15,6 +15,8 @@
 \usepackage{eurosym}
 \usepackage{makecell}
 \usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{tabto} 
 
 % Graphics rendering using TikZ
 % See: https://en.wikibooks.org/wiki/LaTeX/PGF/TikZ
@@ -120,10 +122,11 @@
     \begin{content}
         % Add your content files:
 		\input{sections/01_simple_iteration.tex}
-        \input{sections/02_introduction.tex}
-		\input{sections/02_Hypothesis_Test_Mean}
-		\input{sections/03_Hypothesis_Test_Var.tex}
-        \input{sections/04_Hypothesis_Test_Propotion.tex}
+        \input{sections/introduction.tex}
+        \input{sections/gmres_arnoldi.tex}
+		% \input{sections/02_Hypothesis_Test_Mean}
+		% \input{sections/03_Hypothesis_Test_Var.tex}
+        % \input{sections/04_Hypothesis_Test_Propotion.tex}
     \end{content}
     
     \pagenumbering{Roman}

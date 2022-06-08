@@ -1,0 +1,26 @@
+\section{Thuật giải Arnoldi}
+Phương pháp GMRES sử dụng quá trình Gram-Schmitz chỉnh sửa để thiết lập
+một cơ sở trực chuẩn cho không gian Krylov $span\{r_0, Ar_0, ..., A^kr_0 \}$.
+Quá trình Gram-Schmitz được áp dụng cho không gian này được gọi là phương pháp \textit{Arnoldi}
+Giải thuật này nhằm phân tích $A=QHQ^*$, trong đó $Q$ là ma trận trực chuẩn (unitary) 
+còn $H$ là ma trận Hessenberg\footnote{
+    \textit{
+    Ma trận $H$ vuông kích thước $n \times n$ được gọi là ma trận upper Hessenberg nếu
+    $h_{ij} = 0$ với mọi $i,j$ mà $i > j + 1$
+}
+}.
+
+
+
+\textbf{Arnoldi Algorithm}
+\begin{lstlisting}[style=algo]
+    Given $q_1$ with $\|q_1\| = 1$
+    For $j = 1, 2, ...$
+        $\tilde{q}_{j + 1} = Aq_j$
+        For $i = 1, ..., j$
+            $h_{ij} = \langle\tilde{q}_{j+1}, q_j\rangle$
+            $\tilde{q}_{j+1} \gets \tilde{q}_{j+1} - h_{ij}q_i$
+        $h_{j+1,j} = \|\tilde{q}_{j+1}\|$
+        $q_{j + 1} = \tilde{q}_{j+1}/h_{j+1,j}$
+\end{lstlisting}
+

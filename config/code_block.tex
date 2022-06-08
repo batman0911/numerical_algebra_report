@@ -4,7 +4,7 @@
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
-\lstdefinestyle{mystyle}{
+\lstdefinestyle{code}{
     backgroundcolor=\color{backcolour},   
     commentstyle=\color{codegreen},
     keywordstyle=\color{magenta},
@@ -32,4 +32,33 @@
     frame=tb, framerule=0pt,
 }
 
-\lstset{style=mystyle}
+\lstdefinestyle{algo}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize\small\linespread{0.8},
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=none,
+    firstnumber=1,
+    stepnumber=1,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    framesep=10pt,
+    xleftmargin=10pt,
+    xrightmargin=10pt,
+    framexleftmargin=16pt,
+    framextopmargin=2pt,
+    framexbottommargin=2pt, 
+    frame=tb, framerule=0pt,
+    mathescape=true
+}
+
+\lstset{style=code}
