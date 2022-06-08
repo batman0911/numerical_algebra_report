@@ -1,0 +1,224 @@
+\chapter{Kiểm định giả thiết cho trung bình}
+
+\section{Kiểm định giả thiết cho trung bình với mẫu có phân bố chuẩn và phương sai đã biết}
+Giả thiết null $H_0: \mu = \mu_0$ \\
+Thực hiện test với mẫu ngẫu nhiên kích thước $n$, phân bố của $\bar{X}$ là phân bố chuẩn $N(\mu_0, \sigma / \sqrt{n})$
+(Giải sử $H_0$ là đúng). \\
+Định lý giới hạn trung tâm cũng chỉ ra rằng $\bar{X}$ có phân bố chuẩn với cỡ mẫu lớn. \\
+Tham số chuẩn hóa 
+
+\begin{equation}
+    Z = \frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}} \sim N(0, 1)
+\end{equation}
+
+Ta có
+
+\begin{center}
+    \begin{tabular}{| c | c | c | c |}
+        \hline
+        Đối thiết & $H_1: \mu < \mu_0$ & $H_1: \mu > \mu_0$ & $H_1: \mu \neq \mu_0$ \\
+        \hline
+        Miền bác bỏ & $z < z_{\alpha}$ & $z > z_{1-\alpha}$ & $\lvert z \rvert > z_{1 - \alpha / 2}$ \\
+        \hline
+    \end{tabular}
+\end{center}
+
+Trong đó $\Phi(z_\alpha) = \alpha$ \\
+Nhắc lại, trong ngôn ngữ \lstinline{R}
+\begin{lstlisting}{language=R}
+    z.x = qnorm(x)
+\end{lstlisting}
+
+demo code: 
+\begin{lstlisting}{language=R}
+    sigma <- 6
+    mu <- 40
+    pnorm(-2)
+    pnorm(2)
+\end{lstlisting}
+
+
+\section{Kiểm định cho trung bình với mẫu có phân bố chuẩn và phương sai chưa biết}
+
+Giả thiết null $H_0: \mu = \mu_0$ \\
+Tham số chuẩn hóa được xem xét trong trường hợp này khác với trường hợp đã biết phương sai của tổng thể
+:
+\begin{equation}
+    T = \frac{\bar{X} - \mu_0}{S/ \sqrt{n}} \sim t_{n - 1}    
+\end{equation}
+
+
+Ta có:
+
+\begin{center}
+    \begin{tabular}{| c | c | c | c |}
+        \hline
+        Đối thiết & $H_1: \mu < \mu_0$ & $H_1: \mu > \mu_0$ & $H_1: \mu \neq \mu_0$ \\
+        \hline
+        Miền bác bỏ & $t < t_{\alpha; n - 1}$ & $t > t_{1-\alpha; n - 1}$ & $\lvert t \rvert > t_{1 - \alpha / 2; n - 1}$ \\
+        \hline
+    \end{tabular}
+\end{center}
+
+Để tính $t_{x; y}$ trong \lstinline{R} ta dùng hàm:
+
+\begin{lstlisting}{language=R}
+    t.x.y = qt(x, y)
+\end{lstlisting}
+
+\section{Bài tập}
+\textbf{pr3}: Mức ý nghĩa $5\%$, tính power với giả thiết $H_0: \mu = 100$ với đối 
+thiết $H_1: \mu \neq 100$ với cỡ mẫu 36 có phân phối chuẩn $N(120, 50)$
+
+Tham số chuẩn hóa: 
+$$Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}$$
+Hàm power: 
+$$1 - \beta = P(|Z| > Z_{1 - \alpha / 2}) = P(Z < Z_{\alpha / 2}) + P(Z > Z_{1 - \alpha/2})$$
+
+Code \lstinline{R}:
+\begin{lstlisting}
+    mu = 100
+    mu0 = 120
+    sigmaX = 50 / 6
+    alpha = 0.05
+    z1 = qnorm(alpha / 2, mu, sigmaX)
+    z2 = qnorm(1 - alpha / 2, mu, sigmaX)
+    pnorm(z1, mu0, sigmaX) + 1 - pnorm(z2, mu0, sigmaX)
+\end{lstlisting}
+
+Kết quả $1- \beta = 0.67$
+\begin{lstlisting}
+    [1] 0.670051
+\end{lstlisting}
+
+\textbf{pr4}: Kiểm định cho giả thiết $H_0: \mu = 170$ và đối thiết $H_1: \mu < 170$
+cho đại lượng loss trong tập dữ liệu Rubber.
+
+Cách làm đơn giản với code \lstinline{R}:
+\begin{lstlisting}
+    library(MASS)
+    data("Rubber")
+    loss <- Rubber$loss
+    t.test(loss, alternative = c("less"), mu = 170)
+\end{lstlisting}
+Kết quả:
+\begin{lstlisting}
+        One Sample t-test
+
+    data:  loss
+    t = 0.33785, df = 29, p-value = 0.631
+    alternative hypothesis: true mean is less than 170
+    95 percent confidence interval:
+        -Inf 202.7589
+    sample estimates:
+    mean of x 
+    175.4333 
+\end{lstlisting}
+Kết luận: với độ tin cậy $95\%$ ta có thể bác bỏ giả thiết $H_0$, chấp nhận $H_1: \mu < 170$
+
+\textbf{pr12}: Xem xét data frame Fertilize, chiều cao của cây được cho qua biến self
+
+(a) Kiểm định giả thiết cho chiều cao trung bình của cây lớn hơn 17 inchs với mức ý nghĩa $\alpha = 5\%$
+
+(b) Ước lượng khoảng một phía với độ tin cậy $95\%$ cho chiều cao trung bình ($H_1: \mu > 17$)
+
+(c) Tính cỡ mẫu cần thiết để có giá trị power là 0.9 với $\mu_1 = 18$ inchs giả thiết $\sigma = s$
+
+(d) Tính power cho kiểm định trong phần a với $\sigma = s$ và $\mu_1 = 18$
+
+\textit{Lời giải:}
+
+(a) Giả thiết $H_0: \mu = 17$ và đối thiết $H_1: \mu > 17$
+
+\begin{lstlisting}
+    library(PASWR)
+    data("Fertilize")
+    self <- Fertilize$self
+    t.test(self, mu = 17, alternative = c("greater"))
+\end{lstlisting}
+
+Kết quả thu được:
+
+\begin{lstlisting}
+        One Sample t-test
+
+    data:  self
+    t = 1.0854, df = 14, p-value = 0.148
+    alternative hypothesis: true mean is greater than 17
+    95 percent confidence interval:
+    16.64196      Inf
+    sample estimates:
+    mean of x 
+    17.575 
+\end{lstlisting}
+Ta thấy $p-value = 0.148 > \alpha = 0.05$ nên chưa đủ cơ sở để bác bỏ $H_0$.
+
+Kết luận: chưa đủ cơ sở để kết luận chiều cao trung bình $\mu > 17$ inchs với 
+mức ý nghĩa $\alpha = 5\%$.
+
+(b) Ước lượng khoảng với độ tin cậy $95\%$ cho chiều cao trung bình của cây là $\mu > 16.642$ inchs
+
+% (c) Với hàm power, ta có 
+% Tham số chuẩn hóa $Z = \frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}}$ với $\mu_{obs} = \bar{X}$
+% \begin{align*}
+%     \begin{split}
+%         0.9 = 1 - \beta(\theta) = P(\text{chấp nhận } H_1 | H_1 \text{ đúng}) \\
+%         = P(Z > Z_{1 - \alpha}) = P\left(\frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}} > Z_{1 - \alpha}\right)
+%         = P\left(\frac{\bar{X} - \mu_0}{s / \sqrt{n}} > Z_{1 - \alpha}\right)
+%     \end{split}
+% \end{align*}
+% Ở đây, ta giả sử $\sigma = s$, kết hớp với phương trình trên ta có:
+
+% $$n > \left(\frac{Z_{0.9}s}{\bar{X} - \mu}\right)^2$$
+
+% \begin{lstlisting}
+%     xmean <- mean(self)
+%     s2 <- var(self)
+%     z_a <- qnorm(0.9)
+%     n_min <- (z_a * sqrt(s2) / (xmean - 18))^2
+% \end{lstlisting}
+
+% Ta thu được $n_{min} = 38.2747$. Như vậy ta có thể kết luận cỡ mẫu nhỏ nhất để test có power $0.9$, $\mu = 18$ và $\sigma = s$ là $39$
+
+(d) 
+\begin{align*}
+    \begin{split}
+        power(\mu_1) = P(\text{chấp nhận } H_1 | H_1 \text{ đúng}) = P\left(\mu_{obs} > \mu_0 | N\left(\mu_1, \frac{s}{\sqrt{n}}\right)\right) \\
+        = P\left( Z > Z_{1 - \alpha} \right) = 0.596
+    \end{split}
+\end{align*}
+
+\begin{lstlisting}
+    n <- length(self)
+    z <- qnorm(0.95, 17, sqrt(s2/n))
+    round(1 - pnorm(z, 18, sqrt(s2/n)), 3) # = 0.596
+\end{lstlisting}
+
+(c)
+Thử cho giá trị $n$ khác nhau vào đoạn code \lstinline{R} trên và tính giá trị power ta thấy giá trị nhỏ
+nhất để có $power = 0.9$ là $n = 36$
+
+\textbf{pr18}: Tìm power của giả thiết $H_0: \mu = 65$, đối thiết $H_1: \mu > 65$
+nếu $\mu_1 = 70$, mức ý nghĩa $\alpha = 0.01$ cho data \lstinline{hard}, data frame \lstinline{Rubber}.
+Gỉả sử $\sigma = s$
+
+\textit{Lời giải}:
+\begin{align*}
+    \begin{split}
+        power(\mu_1) = P(\text{chấp nhận } H_1 | H_1 \text{ đúng}) = P\left(\mu_{obs} > \mu_0 | N\left(\mu_1, \frac{s}{\sqrt{n}}\right)\right) \\
+        = P(Z > Z_{1 - \alpha}) = 0.496
+        % = P\left( Z > \frac{\mu_0 - \mu_1}{s/\sqrt{n}} \right) = 0.988
+    \end{split}
+\end{align*}
+
+\lstinline{R} code:
+
+\begin{lstlisting}
+    library(MASS); data("Rubber")
+    hard <- Rubber$hard
+    n <- length(hard)
+    s2 <- var(hard)
+    z <- qnorm(0.99, 65, sqrt(s2/n))
+    round(1 - pnorm(z, 70, sqrt(s2/n)), 3) # = 0.469
+\end{lstlisting}
+
