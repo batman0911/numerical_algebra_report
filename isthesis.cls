@@ -198,7 +198,7 @@
 	\isthesis@new@option{label-principal}{label@principal}{Giảng viên}
 	\isthesis@new@option{label-associate}{label@associate}{Associate Supervisor}
 	\isthesis@new@option{label-tutor}{label@tutor}{Tutor}
-	\isthesis@new@option{label-author}{label@author}{Thành viên nhóm}
+	\isthesis@new@option{label-author}{label@author}{Học viên}
 	\isthesis@new@option{label-submission}{label@submission}{Ngày}
 	\isthesis@new@option{label-atthe}{label@atthe}{}
 	\isthesis@new@option{label-atthex}{label@atthex}{}

@@ -2,7 +2,7 @@
 Phương pháp GMRES sử dụng quá trình Gram-Schmitz chỉnh sửa để thiết lập
 một cơ sở trực chuẩn cho không gian Krylov $span\{r_0, Ar_0, ..., A^kr_0 \}$.
 Quá trình Gram-Schmitz được áp dụng cho không gian này được gọi là phương pháp \textit{Arnoldi}
-Giải thuật này nhằm phân tích $A=QHQ^*$, trong đó $Q$ là ma trận trực chuẩn (unitary) 
+Giải thuật này nhằm phân tích $A=QHQ^*$ hoặc $AQ = QH$, trong đó $Q$ là ma trận trực chuẩn (unitary) 
 còn $H$ là ma trận Hessenberg\footnote{
     \textit{
     Ma trận $H$ vuông kích thước $n \times n$ được gọi là ma trận upper Hessenberg nếu
@@ -10,6 +10,31 @@ còn $H$ là ma trận Hessenberg\footnote{
 }
 }.
 
+Gọi $Q_n$ (ma trận $m \times n$) là ma trận được tạo thành bởi $n$ cột đầu tiên của ma trận $Q$
+
+\begin{equation}
+    Q_n = \begin{bmatrix}
+        q_1 & | & q_2 & | & q_3 & ... & | & q_n
+    \end{bmatrix}    
+\end{equation}
+
+Gọi $\tilde{H}_n$ là phần trên bên trái $(n + 1) \times n$ của ma trận $H$.
+$\tilde{H}_n$ đương nhiên cũng là 1 ma trận Hessenberg. 
+
+Ta có phương trình:
+
+\begin{equation}
+    AQ_n = Q_{n + 1}\tilde{H}_n
+\end{equation}
+
+Ta có thể viết riêng cho cột thứ $n$ của phương trình như sau:
+
+\begin{equation}
+    Aq_n = h_{1n}q_1 + ... + h_{nn}q_n + h_{n+1,n}q_{n + 1}
+\end{equation}
+
+Có nghĩa là $q_{n+1}$ có thể tìm được từ $n$ vectors $q_1, q_2, ..., q_n$. 
+$q_{n+1}$ được tính theo phương pháp lặp bằng giải thuất dưới đây (thuật giả Arnoldi)
 
 
 \textbf{Arnoldi Algorithm}
@@ -24,3 +49,10 @@ còn $H$ là ma trận Hessenberg\footnote{
         $q_{j + 1} = \tilde{q}_{j+1}/h_{j+1,j}$
 \end{lstlisting}
 
+Trong đó $\langle v, u \rangle$ là tích vô hướng của 2 vectors $v$ và $u$.
+
+Chúng ta có thể tìm được ma trận $Q$ với các ngôn ngữ lập trình bậc cao như MATLAB một cách 
+tương đối dễ đàng. Ma trận $A$ ở đây chỉ xuất hiện trong tích $Aq_j$ và MATLAB cũng tích hợp 
+sẵn chương trình nhân ma trận. Tuy nhiên trong bài này, tác giả sử dụng ngôn ngữ lập trình pyhthon 
+cũng là một ngôn ngữ bậc cao hiện đại và có nhiều bộ thư viện giúp ta tính toán với ma trận tương 
+đối dễ dàng và tường minh như \textit{numpy} chẳng hạn.
