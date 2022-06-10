@@ -1,0 +1,35 @@
+\section{GMRES}
+Trong phương pháp GMRES, nghiệm gần đúng $x_k$ được chọn dưới dạng 
+$x_k = x_0 + Q_k y_k$ với một vector $y_k$ nào đó cần tìm. Nghĩa là $x_k$ là $x_0$
+cộng với một tổ hợp tuyến tính của các vectors cơ sở trực chuẩn cho không gian Krylov.
+Chúng ta sẽ tìm vector $y_k$ sao cho phần dư $r_k = r_0 - AQ_k y_k$ có chuẩn-2 tối thiểu.
+Như vậy vector $y$ phải thỏa mãn bài toán bình phương tối thiểu:
+\begin{equation*}
+    \begin{split}
+        &\min_{y} \|r_0 - AQ_k y \| = \min_y \|r_0 - Q_{k+1}H_k y\| \\
+        &= \min_{y} \|Q_{k+1}(\beta e_1 - H_k y)\| = \min_{y} \|\beta e_1 - H_k y\|
+    \end{split}
+\end{equation*}
+Trong đó, $\beta = \|r_0\|$, $e_1$ là vector đơn vị $(k+1)$ chiều $(1,0,...,0)^T$.
+
+Từ đây, ta có thể đưa ra những bước cơ bản để thực hiện giải nghiệm gần đúng $x_k$ 
+bằng phương pháp GMRES như sau:
+
+1. Lấy một điểm bắt đầu, vector $x_0$, tính phần dư $r_0 = b - A_x0$, đặt 
+$q_1 = r_0 / \|r_0\|$
+
+2. Cho $k$ chạy từ 1: $k=1,2,...$: tính $q_{k+1}$ và $h_{i,k}$ với 
+$i = 1,2,...,k+1$ sử dụng giải thuật Arnoldi.
+
+3. Tính $x_k = x_0 + Q_k y_k$ với $y_k$ là nghiệm của bài toán bình phương tối thiểu 
+$\min_y \|\beta e_1 - H_k y\|$
+
+Việc giải bài toán GMRES tổng quát được mô tả ở trên là khá tốn công sức và thiếu thực tế
+vì khối lượng tính toán cũng như không gian lưu trữ khá lớn, đặc biệt khi kích thước của hệ 
+là lớn. Ta nhận thấy số vòng lặp $\sim k^2$ tuy nhiên tại thời điểm này ta chưa nhận định được 
+sau bao nhiêu bước $k$ thì thu được nghiệm gần đúng chấp nhận được. Ta có thể dùng giải thuật
+GMRES(j) được định nghĩa đơn giản là \textit{khởi động lại} GMRES qua mỗi $j$ bước, sử dụng 
+bước lặp gần nhất làm giá trị khởi tạo cho vòng tiếp theo. Chúng ta sẽ không bàn quá sâu về  GMRES
+ở đây nữa vì trọng tâm phần này, tác giả muốn giới thiệu về ý tưởng chính của phương pháp và tìm 
+ra 1 cách hiệu quả để giải bài toán ma trận đối xứng. Chi tiết cho bài toán bình phương tối thiểu 
+(\textit{least square}) cũng sẽ được trình bày ở phần sau.

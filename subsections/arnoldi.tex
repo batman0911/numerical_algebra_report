@@ -24,7 +24,7 @@ $\tilde{H}_n$ đương nhiên cũng là 1 ma trận Hessenberg.
 Ta có phương trình:
 
 \begin{equation}
-    AQ_n = Q_{n + 1}\tilde{H}_n
+    AQ_n = Q_{n + 1}\tilde{H}_n \label{arnoldi:1}
 \end{equation}
 
 Ta có thể viết riêng cho cột thứ $n$ của phương trình như sau:
@@ -34,7 +34,7 @@ Ta có thể viết riêng cho cột thứ $n$ của phương trình như sau:
 \end{equation}
 
 Có nghĩa là $q_{n+1}$ có thể tìm được từ $n$ vectors $q_1, q_2, ..., q_n$. 
-$q_{n+1}$ được tính theo phương pháp lặp bằng giải thuất dưới đây (thuật giả Arnoldi)
+$q_{n+1}$ được tính theo phương pháp lặp bằng giải thuật dưới đây (thuật giả Arnoldi)
 
 
 \textbf{Arnoldi Algorithm}
@@ -50,6 +50,11 @@ $q_{n+1}$ được tính theo phương pháp lặp bằng giải thuất dưới
 \end{lstlisting}
 
 Trong đó $\langle v, u \rangle$ là tích vô hướng của 2 vectors $v$ và $u$.
+
+Thực chất, ta có thể chứng minh phương trình \eqref{arnoldi:1} bằng cách sử dụng quy nạp và tính chất
+của ma trận Hessenberg dựa vào cách chọn các vectors $q_j$ và $h_{ij}$ trong thuật giải Arnoldi ở trên 
+(chi tiết trong phần phụ lục).
+
 
 Chúng ta có thể tìm được ma trận $Q$ với các ngôn ngữ lập trình bậc cao như MATLAB một cách 
 tương đối dễ đàng. Ma trận $A$ ở đây chỉ xuất hiện trong tích $Aq_j$ và MATLAB cũng tích hợp 
