@@ -43,7 +43,7 @@ $q_{n+1}$ được tính theo phương pháp lặp bằng giải thuật dưới
     For $j = 1, 2, ...$
         $\tilde{q}_{j + 1} = Aq_j$
         For $i = 1, ..., j$
-            $h_{ij} = \langle\tilde{q}_{j+1}, q_j\rangle$
+            $h_{ij} = \langle\tilde{q}_{j+1}, q_i\rangle$
             $\tilde{q}_{j+1} \gets \tilde{q}_{j+1} - h_{ij}q_i$
         $h_{j+1,j} = \|\tilde{q}_{j+1}\|$
         $q_{j + 1} = \tilde{q}_{j+1}/h_{j+1,j}$

@@ -15,3 +15,5 @@
 \contentsline {chapter}{\numberline {4}MINRES}{7}{chapter.4}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.1}Giải thuật Lanczos}{7}{section.4.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.2}MINRES}{8}{section.4.2}%
