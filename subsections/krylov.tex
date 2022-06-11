@@ -7,7 +7,13 @@ Không gian con Krylov là không gian được sinh bởi các vectors này
 
 Ma trận Krylov
 \begin{equation}
-    K_n = \begin{bmatrix}
-        b & | & Ab & | & A^2b & ... & | & A^{n-1}b
-    \end{bmatrix}    
+    K_n = \left[
+        \begin{array}{c|c|c|c|c}
+        &  &  &  \\
+        &  &  &  \\
+        b & Ab &  A^2b & ... &  A^{n-1}b \\
+        &  &  &  \\
+        &  &  &  
+        \end{array}
+    \right]
 \end{equation}

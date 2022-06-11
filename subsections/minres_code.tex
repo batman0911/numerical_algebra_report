@@ -1,0 +1,24 @@
+\section{MINES code}
+Để có cái nhìn trực quan về giải thuật MINRES, chúng ta sẽ dùng python với
+thư viện scipy để giải thử một hệ phương trình với ma trận đối xứng kích thước $20 \times 20$.
+
+Thư viện scipy đã cung cấp hàm dựng sẵn để giải hệ, ta cùng xem đầu ra và xem xét tính hội tụ của phần dư:
+
+\begin{lstlisting}[style=code]
+    import numpy as np
+    from scipy.sparse.linalg import minres
+
+    np.random.seed(100)
+    A = np.random.randint(1, 10, (20,20))
+    A = A + A.T
+    print(A)
+    b = np.random.randint(1, 10, 20)
+    x, exitCode = minres(A, b, maxiter=1000, show=True)
+    print(exitCode)
+\end{lstlisting}
+Output:
+\lstinputlisting[numbers=none, basicstyle=\tiny]{assets/output.txt}
+\section*{Phân tích kết quả}
+Như ta thấy trong code, tham số maxiter được set là $1000$ nghĩa là ta cho phép tối đa $1000$ vòng lặp.
+Tolerent mặc định của hàm minres trong thư viện scipy được lấy là $10^{-5}$. rnorm là phần dư có giá trị là $1.7053e-06$ 
+và đạt được sau 21 vòng lặp. Nếu so sánh với phương pháp khử Gauss, số bước tính $\sim 20^3 = 8000$ 

@@ -11,16 +11,28 @@ còn $H$ là ma trận Hessenberg\footnote{
 }.
 
 Gọi $Q_n$ (ma trận $m \times n$) là ma trận được tạo thành bởi $n$ cột đầu tiên của ma trận $Q$
-
 \begin{equation}
-    Q_n = \begin{bmatrix}
-        q_1 & | & q_2 & | & q_3 & ... & | & q_n
-    \end{bmatrix}    
+    Q_n = \left[
+        \begin{array}{c|c|c|c|c}
+        &  &  &  \\
+        &  &  &  \\
+        q_1 & q_2 &  q_3 & ... &  q_n \\
+        &  &  &  \\
+        &  &  &  
+        \end{array}
+    \right]
 \end{equation}
-
 Gọi $\tilde{H}_n$ là phần trên bên trái $(n + 1) \times n$ của ma trận $H$.
 $\tilde{H}_n$ đương nhiên cũng là 1 ma trận Hessenberg. 
-
+\begin{equation}
+    \tilde{H}_n = \begin{bmatrix}
+        h_{11} &  & \ldots & h_{1n} & \\
+        h_{21} & h_{22} & & \vdots \\
+        & \ddots & \ddots & \vdots \\ 
+        & & h_{n, n-1} & h_{nn} \\
+        & & & h_{n+1,n}    
+    \end{bmatrix}
+\end{equation}
 Ta có phương trình:
 
 \begin{equation}
@@ -34,7 +46,7 @@ Ta có thể viết riêng cho cột thứ $n$ của phương trình như sau:
 \end{equation}
 
 Có nghĩa là $q_{n+1}$ có thể tìm được từ $n$ vectors $q_1, q_2, ..., q_n$. 
-$q_{n+1}$ được tính theo phương pháp lặp bằng giải thuật dưới đây (thuật giả Arnoldi)
+$q_{n+1}$ được tính theo phương pháp lặp bằng giải thuật dưới đây (thuật giải Arnoldi)
 
 
 \textbf{Arnoldi Algorithm}

@@ -1,9 +1,11 @@
 \BOOKMARK [0][-]{contents.0}{Muc luc}{}% 1
-\BOOKMARK [0][-]{chapter.1}{Phng ph\341p lp n gian}{}% 2
-\BOOKMARK [0][-]{chapter.2}{Tng quan}{}% 3
-\BOOKMARK [0][-]{chapter.3}{GMRES}{}% 4
-\BOOKMARK [1][-]{section.3.1}{Thut giai Arnoldi}{chapter.3}% 5
-\BOOKMARK [1][-]{section.3.2}{GMRES}{chapter.3}% 6
-\BOOKMARK [0][-]{chapter.4}{MINRES}{}% 7
-\BOOKMARK [1][-]{section.4.1}{Giai thut Lanczos}{chapter.4}% 8
-\BOOKMARK [1][-]{section.4.2}{MINRES}{chapter.4}% 9
+\BOOKMARK [0][-]{chapter.1}{Tng quan}{}% 2
+\BOOKMARK [0][-]{chapter.2}{GMRES}{}% 3
+\BOOKMARK [1][-]{section.2.1}{Thut giai Arnoldi}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.2}{GMRES}{chapter.2}% 5
+\BOOKMARK [0][-]{chapter.3}{MINRES}{}% 6
+\BOOKMARK [1][-]{section.3.1}{Giai thut Lanczos}{chapter.3}% 7
+\BOOKMARK [1][-]{section.3.2}{MINRES}{chapter.3}% 8
+\BOOKMARK [1][-]{section.3.3}{Ma trn quay v\340 ph\342n t\355ch QR}{chapter.3}% 9
+\BOOKMARK [1][-]{section.3.4}{Giai thut MINRES chi tit}{chapter.3}% 10
+\BOOKMARK [1][-]{section.3.5}{MINES code}{chapter.3}% 11

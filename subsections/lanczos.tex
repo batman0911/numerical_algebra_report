@@ -75,7 +75,12 @@ $q_1, ..., q_k$, $e_k$ là vectors đơn vị thứ $k$ và $T_k$ là ma trận 
 \textit{3 đường chéo} (tridiagonal) với các hệ số như sau:
 
 \begin{equation}
-    matrix here
+    T_k = \begin{bmatrix}
+        \alpha_1  & \beta_1 & & \\
+        \beta_1 & \ddots & \ddots & \\
+        & \ddots & \ddots & \beta_{k-1} \\
+        & & \beta_{k-1} & \alpha_k
+    \end{bmatrix}
 \end{equation}
 Ma trận $(k+1) \times k$ $T_{k+1,k}$ là ma trận với $T_k$ là khối $k \times k$ phía trên và
 cột cuối cùng là $\beta_k e_k^T$.

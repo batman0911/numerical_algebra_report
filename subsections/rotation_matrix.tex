@@ -1,0 +1,54 @@
+\section{Ma trận quay và phân tích $QR$}
+Để tính các phần tử $b_{k-1}^{(k-l)}$ của ma trận $R_{k \times k}$, ta tiền hành 
+phân tích $QR$ ma trận $T_{k+1, k}$. Ở đây ta sẽ dùng 1 cách nhẹ nhàng hơn so với việc phân tích $QR$ đầy đủ hoặc
+ít nhất là không phải lưu trữ cả ma trận $R$ vì ta chỉ quan tâm tới 3 hàng cuối cùng của cột thứ $k$ của ma trận $R$ 
+mà thôi.
+
+Nếu cho biết được phân tích $QR$ của ma trận $T_{k+1,k}$ ta có thể tính được phân tích $QR$ cho ma trận tiếp theo $T_{k+2,k+1}$
+một cách tiết kiệm công sức.
+
+$\Theta_i$ được định nghĩa là một ma trận quay vector đơn vị $e_i$ và $e_{i+1}$ đi 1 góc $\theta_i$
+\begin{equation}
+    \Theta_i = \begin{bmatrix}
+        I & & & \\
+        & c_i & s_i & \\
+        & -\bar{s_i} & c_i & \\
+        & & & & I
+    \end{bmatrix}
+\end{equation}
+Trong đó $c_i \equiv cos(\theta_i)$ và $s_i \equiv sin(\theta_i)$. Kích thước của ma trận phụ thuộc 
+vào thành phần đơn vị $I$ thứ 2 và tùy thuộc vào bối cảnh cụ thể.
+
+Trong trường hợp tổng quát khi phân tích $QR$ cho 1 ma trận Hessenberg $H_{k+2,k+1}$
+từ phân tích $QR$ của ma trận $H_{k+1,k}$ trong bước trước đó, giả sử rằng các ma trận 
+quay $\Theta_i$ với $i=1,...,k$ đã được tác động lên $H_{k+1,k}$, ta có:
+
+\begin{equation}
+    \left(\Theta_k \Theta_{k-1} ... \Theta_1\right)H_{k+1,k} = R^{(k)} =
+    \begin{bmatrix}
+        z & z & \ldots & z\\
+        & z & \ldots & z \\
+        & & \ddots & \vdots \\
+        & & & z & \\
+        0 & 0 & \ldots & 0
+    \end{bmatrix}
+\end{equation}
+Trong đó kí hiệu $z$ cho các thành phần khác $0$
+
+Để thu được $R^{(k+1)}$ hay là phần tam giác trên của $H_{k+2,k+1}$, đầu tiên ta tác động các ma trận quay 
+trước đó vào $H_{k+2,k+1}$ 
+\begin{equation}
+    \left(\Theta_k \Theta_{k-1} ... \Theta_1\right)H_{k+2,k+1} = R^{(k+1)} =
+    \begin{bmatrix}
+        z & z & \ldots & z & z\\
+        & z & \ldots & z & z\\
+        & & \ddots & \vdots & \vdots\\
+        & & & z & z\\
+        0 & 0 & \ldots & 0 & d \\
+        0 & 0 & \ldots & 0 & h \\
+    \end{bmatrix}
+\end{equation}
+Trong đó phần từ $(k+2, k+1)$ (kí hiệu $h$) trong ma trận là $h_{k+2,k+1}$ không bị ảnh hưởng
+với tác động quay này. Tác động $\Theta_{k+1}$ trong bước tiếp theo được chọn để triệt tiêu phần 
+tử này bằng cách chọn $c_{k+1} = |d|/\sqrt{|d|^2 + |h|^2}$, $\bar{s}_{k+1} = c_{k+1}h/d$ nếu $d \neq 0$
+và $c_{k+1} = 0$, $s_{k+1} = 1$ nếu $d=0$.

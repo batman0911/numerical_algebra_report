@@ -1,0 +1,70 @@
+\section{Giải thuật MINRES chi tiết}
+Ta có giải thuật MINRES được viết chi tiết như sau:
+
+\textbf{MINRES Algorithm} (for Hermintian matrices A)
+\begin{lstlisting}[style=algo]
+    Given vector $x_0$ 
+    Compute $r_0 = b - Ax_0$
+    Set $q_1 = r_0 \|r_0\|$
+    Initialize $e = (1,0,...,0)^T$, $\beta = \|r_0\|$
+    For k = 1,2,...
+        Compute $q_{k+1}$, $\alpha_k \equiv T(k,k)$, $\beta_k \equiv T(k+1, k) \equiv T(k, k+1)$
+        using Lanczos algorithm
+
+        Apply $F_{k-2}$ and $F_{k-1}$ to the last column of $T$:
+
+            $\begin{pmatrix}
+                T(k-2, k) \\
+                T(k- 1, k)
+            \end{pmatrix}
+            \gets 
+            \begin{pmatrix}
+                c_{k-2} & s_{k-2} \\
+                -\bar{s}_{k-2} & c_{k-2}
+            \end{pmatrix}
+            \begin{pmatrix}
+                0 \\
+                T(k- 1, k)
+            \end{pmatrix}$, if $k>2$
+
+            $\begin{pmatrix}
+                T(k-1, k) \\
+                T(k, k)
+            \end{pmatrix}
+            \gets 
+            \begin{pmatrix}
+                c_{k-1} & s_{k-1} \\
+                -\bar{s}_{k-1} & c_{k-1}
+            \end{pmatrix}
+            \begin{pmatrix}
+                T(k- 1, k) \\
+                T(k, k)
+            \end{pmatrix}$, if $k>1$
+
+        Compute the kth rotation, $c_k$ and $s_k$ to annihilate 
+        the $(k+1,k)$ entry of $T$
+
+        Apply kth rotation to $e$ and to the last column of $T$
+
+            $\begin{pmatrix}
+                e(k) \\
+                e(k+1)
+            \end{pmatrix}
+            \gets 
+            \begin{pmatrix}
+                c_{k} & s_{k} \\
+                -\bar{s}_{k} & c_{k}
+            \end{pmatrix}
+            \begin{pmatrix}
+                e(k) \\
+                0
+            \end{pmatrix}$
+
+            $T(k,k) \gets c_kT(k,k) + s_kT(k+1, k)$
+            $T(k+1, k) \gets 0$
+
+        Commpute $p_{k-1} = \left[ q_k - T(k-1,k)p_{k-2} - T(k-2,k)p_{k-3} \right]/T(k,k)$
+        where undefined terms are zero for $k \leq 2$
+
+        Set $x_k = x_{k-1} + a_{k-1}p_{k-1}$, where $a_{k-1} = \beta e(k)$
+\end{lstlisting}
